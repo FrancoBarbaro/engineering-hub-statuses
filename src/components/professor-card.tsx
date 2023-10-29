@@ -44,7 +44,7 @@ export const ProfessorCard: FC<ProfessorCardProps> = ({ info }) => {
                 status.toLowerCase() != "out of office" && (
                   <InfoIcon color="blue" h="100%" pt={2.5} />
                 )}
-              <Text pt="2" fontSize="sm" ps={1.5}>
+              <Text pt={2} fontSize="sm" ps={1.5}>
                 {status}
               </Text>
             </Flex>
