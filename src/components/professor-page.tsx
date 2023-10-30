@@ -1,6 +1,8 @@
 import { ProfessorInfo } from "@/common/types";
 import { ExternalLink } from "@/components/external-link";
 import { LoginModal } from "@/components/login-modal";
+import { StatusIcon } from "@/components/status-icon";
+import { CheckCircleIcon, InfoIcon, WarningIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
@@ -57,9 +59,12 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({ info }) => {
           <Heading size="xs" textTransform="uppercase">
             Status
           </Heading>
-          <Text pt={2} fontSize="sm">
-            {status}
-          </Text>
+          <Flex pt={2}>
+            <StatusIcon status={status} />
+            <Text fontSize="sm" pl={1.5}>
+              {status}
+            </Text>
+          </Flex>
         </Box>
         <Box>
           <Heading size="xs" textTransform="uppercase">

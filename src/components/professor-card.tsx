@@ -1,5 +1,5 @@
 import { BasicInfo } from "@/common/types";
-import { CheckCircleIcon, InfoIcon, WarningIcon } from "@chakra-ui/icons";
+import { StatusIcon } from "@/components/status-icon";
 import {
   Card,
   CardBody,
@@ -23,6 +23,7 @@ export const ProfessorCard: FC<ProfessorCardProps> = ({ info }) => {
 
   return (
     <LinkBox>
+      {/* TODO: make width responsive with {{ xs: 15em, sm: 20em, etc. }} */}
       <Card w="15em" m={4} borderRadius="lg">
         <CardBody>
           <Stack spacing={3}>
@@ -34,16 +35,7 @@ export const ProfessorCard: FC<ProfessorCardProps> = ({ info }) => {
             </Heading>
             <Text>{bio}</Text>
             <Flex>
-              {status.toLowerCase() == "in office" && (
-                <CheckCircleIcon color="green.400" my="auto" />
-              )}
-              {status.toLowerCase() == "out of office" && (
-                <WarningIcon color="red" my="auto" />
-              )}
-              {status.toLowerCase() != "in office" &&
-                status.toLowerCase() != "out of office" && (
-                  <InfoIcon color="blue.500" my="auto" />
-                )}
+              <StatusIcon status={status} />
               <Text fontSize="sm" pl={1.5}>
                 {status}
               </Text>
