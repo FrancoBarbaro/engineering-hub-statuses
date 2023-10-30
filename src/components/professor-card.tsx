@@ -23,7 +23,7 @@ export const ProfessorCard: FC<ProfessorCardProps> = ({ info }) => {
 
   return (
     <LinkBox>
-      <Card w="15em" h="30em" m={4} borderRadius="lg">
+      <Card w="15em" m={4} borderRadius="lg">
         <CardBody>
           <Stack spacing={3}>
             <Image src={photo} alt={name} borderRadius="md" w="100%" />
@@ -35,16 +35,16 @@ export const ProfessorCard: FC<ProfessorCardProps> = ({ info }) => {
             <Text>{bio}</Text>
             <Flex>
               {status.toLowerCase() == "in office" && (
-                <CheckCircleIcon color="green.400" h="100%" pt={2.5} />
+                <CheckCircleIcon color="green.400" my="auto" />
               )}
               {status.toLowerCase() == "out of office" && (
-                <WarningIcon color="red" h="100%" pt={2.5} />
+                <WarningIcon color="red" my="auto" />
               )}
               {status.toLowerCase() != "in office" &&
                 status.toLowerCase() != "out of office" && (
-                  <InfoIcon color="blue" h="100%" pt={2.5} />
+                  <InfoIcon color="blue.500" my="auto" />
                 )}
-              <Text pt={2} fontSize="sm" ps={1.5}>
+              <Text fontSize="sm" pl={1.5}>
                 {status}
               </Text>
             </Flex>

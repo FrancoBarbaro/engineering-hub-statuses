@@ -1,8 +1,10 @@
 import { ProfessorInfo } from "@/common/types";
 import { ExternalLink } from "@/components/external-link";
+import { LoginModal } from "@/components/login-modal";
 import {
   Box,
   Button,
+  ButtonGroup,
   Flex,
   Heading,
   Image,
@@ -11,6 +13,7 @@ import {
   Stack,
   StackDivider,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import type { FC } from "react";
 
@@ -19,6 +22,7 @@ type ProfessorPageProps = {
 };
 
 export const ProfessorPage: FC<ProfessorPageProps> = ({ info }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     name,
     photo,
@@ -73,23 +77,26 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({ info }) => {
             </Text>
           </Box>
         )}
-        {/* TODO: add another conditional here so it's like (callendly || loggedIn) && {JSX} " */}
-        {callendly && (
-          <Box>
-            {/* TODO: if prof is signed in, show change status button, otherwise show schedule meeting button */}
+        {callendly ? (
+          <ButtonGroup spacing={2}>
             <LinkBox>
-              <Button variant="solid" colorScheme="blue" w="100%">
+              <Button variant="solid" colorScheme="blue">
                 <LinkOverlay href={callendly} target="_blank">
                   Schedule a Meeting
                 </LinkOverlay>
               </Button>
             </LinkBox>
-            {/* <Button variant="solid" colorScheme="blue">
-              Change Status
-            </Button> */}
-          </Box>
+            <Button variant="ghost" colorScheme="blue" onClick={onOpen}>
+              Log In as Professor
+            </Button>
+          </ButtonGroup>
+        ) : (
+          <Button variant="solid" colorScheme="blue" onClick={onOpen}>
+            Log In as Professor
+          </Button>
         )}
       </Stack>
+      <LoginModal isOpen={isOpen} onClose={onClose} />
     </Flex>
   );
 };
