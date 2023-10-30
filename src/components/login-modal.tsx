@@ -31,7 +31,6 @@ export const LoginModal: FC<LoginModalProps> = ({ isOpen, onClose }) => (
           mr={3}
           form="login-form"
           type="submit"
-          // onClick={onClose}
         >
           Log In
         </Button>

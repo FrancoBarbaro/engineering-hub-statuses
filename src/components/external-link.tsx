@@ -13,7 +13,7 @@ export const ExternalLink: FC<ExternalLinkProps> = ({ text, href }) => (
       href={href}
       target="_blank"
       fontSize="sm"
-      me={0.5}
+      mr={1}
       _groupHover={{ textDecor: "underline", color: "blue" }}
     >
       {text}
