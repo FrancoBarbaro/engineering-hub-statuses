@@ -1,27 +1,48 @@
 import { FormControl, FormLabel, Input, Stack } from "@chakra-ui/react";
-import type { FC, FormEvent } from "react";
+import { useState, type FC, type FormEvent } from "react";
 
 type LoginFormProps = {
   onClose: () => void;
 };
 
 export const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const validInput = email.trim() !== "" && password.trim() !== "";
+
   const submitHandler = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    onClose();
+
+    if (validInput) {
+			// TODO: authenticate(email, password);
+      setEmail("");
+      setPassword("");
+      onClose();
+    }
   };
 
   return (
     <form id="login-form" onSubmit={submitHandler}>
       <FormControl>
-        <Stack spacing={5}>
-          <Stack spacing={1}>
-            <FormLabel>OU Email</FormLabel>
-            <Input type="email" />
+        <Stack spacing={6}>
+          <Stack spacing={0.5}>
+            <FormLabel>Email</FormLabel>
+            {/* TODO: consider using isInvalid prop, its value would be updated through the submitHandler */}
+            <Input
+              type="email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              placeholder="Your OU email"
+            />
           </Stack>
-          <Stack spacing={1}>
+          <Stack spacing={0.5}>
             <FormLabel>Password</FormLabel>
-            <Input type="password" />
+            <Input
+              type="password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              placeholder="Your password for this site"
+            />
           </Stack>
         </Stack>
       </FormControl>
