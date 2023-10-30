@@ -1,11 +1,12 @@
 import { FormControl, FormLabel, Input, Stack } from "@chakra-ui/react";
-import { useState, type FC, type FormEvent } from "react";
+import { useState, type FC, type FormEvent, LegacyRef } from "react";
 
 type LoginFormProps = {
   onClose: () => void;
+  initialFocusRef: LegacyRef<HTMLInputElement>;
 };
 
-export const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
+export const LoginForm: FC<LoginFormProps> = ({ onClose, initialFocusRef }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const validInput = email.trim() !== "" && password.trim() !== "";
@@ -33,6 +34,7 @@ export const LoginForm: FC<LoginFormProps> = ({ onClose }) => {
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               placeholder="Your OU email"
+							ref={initialFocusRef}
             />
           </Stack>
           <Stack spacing={0.5}>
