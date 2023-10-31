@@ -1,29 +1,66 @@
-import { FormControl, FormLabel, Input, Stack } from "@chakra-ui/react";
-import { LegacyRef, useState, type FC, type FormEvent } from "react";
+import {
+  FormControl,
+  FormLabel,
+  Input,
+  Stack,
+  useToast,
+} from "@chakra-ui/react";
+import {
+  useState,
+  type Dispatch,
+  type FC,
+  type FormEvent,
+  type LegacyRef,
+  type SetStateAction,
+} from "react";
 
 type LoginFormProps = {
   onClose: () => void;
   initialFocusRef: LegacyRef<HTMLInputElement>;
+  setLoggedIn: Dispatch<SetStateAction<boolean>>;
 };
 
-export const LoginForm: FC<LoginFormProps> = ({ onClose, initialFocusRef }) => {
+export const LoginForm: FC<LoginFormProps> = ({
+  onClose,
+  initialFocusRef,
+  setLoggedIn,
+}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const validInput = email.trim() !== "" && password.trim() !== "";
+  const toast = useToast();
 
   const submitHandler = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (validInput) {
-      // TODO: authenticate(email, password);
-      // TODO: have a chakra toast component tell the user wether their authentication failed or succeeded
       // TODO: make sure that if a professor is signed in, they can only change their info and not others'
       // the above leads me to question: should i even have an email input? the only way i can enforce the
       // above is by checking wether the email associated with the professor page corresponds to the email
       // of the user logged in
+      onClose();
       setEmail("");
       setPassword("");
-      onClose();
+      setLoggedIn(true);
+
+      const dummyAuthPromise = new Promise((resolve) => {
+        setTimeout(() => resolve(200), 3000);
+      });
+
+      toast.promise(dummyAuthPromise, {
+        success: {
+          title: "You're Authenticated!",
+          description: "You can now click on any field to edit it",
+        },
+        error: {
+          title: "Authentication Failed!",
+          description: "Incorrect email or password",
+        },
+        loading: {
+          title: "Checking Credentials...",
+          description: "This may take a few seconds",
+        },
+      });
     }
   };
 
@@ -33,7 +70,6 @@ export const LoginForm: FC<LoginFormProps> = ({ onClose, initialFocusRef }) => {
         <Stack spacing={6}>
           <Stack spacing={0.5}>
             <FormLabel>Email</FormLabel>
-            {/* TODO: consider using isInvalid prop, its value would be updated through the submitHandler */}
             <Input
               type="email"
               value={email}

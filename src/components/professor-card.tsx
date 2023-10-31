@@ -1,4 +1,4 @@
-import { BasicInfo } from "@/common/types";
+import type { BasicInfoObject } from "@/common/types";
 import { StatusIcon } from "@/components/status-icon";
 import {
   Card,
@@ -15,7 +15,7 @@ import NextLink from "next/link";
 import type { FC } from "react";
 
 type ProfessorCardProps = {
-  info: BasicInfo;
+  info: BasicInfoObject;
 };
 
 export const ProfessorCard: FC<ProfessorCardProps> = ({ info }) => {

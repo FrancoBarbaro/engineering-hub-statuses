@@ -1,4 +1,5 @@
-import { ProfessorInfo } from "@/common/types";
+import type { ProfessorInfo } from "@/common/types";
+import { EditableField } from "@/components/editable-field";
 import { ExternalLink } from "@/components/external-link";
 import { LoginModal } from "@/components/login-modal";
 import { StatusIcon } from "@/components/status-icon";
@@ -16,13 +17,18 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import type { FC } from "react";
+import { useState, type FC } from "react";
 
 type ProfessorPageProps = {
   info: ProfessorInfo;
+  hyphenatedName: string;
 };
 
-export const ProfessorPage: FC<ProfessorPageProps> = ({ info }) => {
+export const ProfessorPage: FC<ProfessorPageProps> = ({
+  info,
+  hyphenatedName,
+}) => {
+  const [loggedIn, setLoggedIn] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     name,
@@ -58,9 +64,16 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({ info }) => {
           </Heading>
           <Flex pt={2}>
             <StatusIcon status={status} />
-            <Text fontSize="sm" pl={1.5}>
-              {status}
-            </Text>
+            {loggedIn ? (
+              <EditableField
+                initialValue={status}
+                hyphenatedName={hyphenatedName}
+              />
+            ) : (
+              <Text fontSize="sm" pl={1.5}>
+                {status}
+              </Text>
+            )}
           </Flex>
         </Box>
         <Box>
@@ -79,7 +92,7 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({ info }) => {
             </Text>
           </Box>
         )}
-        {callendly ? (
+        {callendly && !loggedIn && (
           <ButtonGroup spacing={2}>
             <LinkBox>
               <Button variant="solid" colorScheme="blue">
@@ -92,13 +105,14 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({ info }) => {
               Log In as Professor
             </Button>
           </ButtonGroup>
-        ) : (
+        )}
+        {!callendly && !loggedIn && (
           <Button variant="solid" colorScheme="blue" onClick={onOpen}>
             Log In as Professor
           </Button>
         )}
       </Stack>
-      <LoginModal isOpen={isOpen} onClose={onClose} />
+      <LoginModal isOpen={isOpen} onClose={onClose} setLoggedIn={setLoggedIn} />
     </Flex>
   );
 };

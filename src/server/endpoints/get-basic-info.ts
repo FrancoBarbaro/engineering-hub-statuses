@@ -1,14 +1,14 @@
-import { firebaseApiFetcher } from "@/clients/firebase/firebase-fetcher";
-import type { ProfessorInfo, ProfessorInfoReturnType } from "@/common/types";
+import { firebaseApiFetcher } from "@/clients/firebase/firebase-axios-functions";
+import type { BasicInfo, BasicInfoReturnType } from "@/common/types";
 
-export const getBasicInfo = async (): Promise<ProfessorInfoReturnType> => {
-  const firebaseResponse = await firebaseApiFetcher<ProfessorInfo>(
+export const getBasicInfo = async (): Promise<BasicInfoReturnType> => {
+  const firebaseResponse = await firebaseApiFetcher<BasicInfo>(
     "professors/basicInfo"
   );
   if (!firebaseResponse.success)
     return {
       error: true,
-      message: "An error occured retrieving planet info!",
+      message: "An error occured retrieving basic info!",
     };
   return { error: false, data: firebaseResponse.data };
 };

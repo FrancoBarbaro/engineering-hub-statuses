@@ -1,7 +1,7 @@
 import type { BasicInfo } from "@/common/types";
 import useSWR from "swr";
 
-type DataType = { info: BasicInfo[] };
+type DataType = { info: BasicInfo };
 
 const fetcher = async (url: RequestInfo) => {
   const res = await fetch(url);

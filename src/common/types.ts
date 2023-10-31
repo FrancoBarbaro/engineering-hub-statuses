@@ -1,10 +1,30 @@
-export type BasicInfo = {
+export type BasicInfoObject = {
   name: string;
   hyphenatedName: string;
   photo: string;
   bio: string;
   status: string;
 };
+
+export type BasicInfo = BasicInfoObject[];
+
+type BaseBasicInfoReturnType = {
+  error: boolean;
+};
+
+type SuccessBasicInfoReturnType = BaseBasicInfoReturnType & {
+  error: false;
+  data: BasicInfo;
+};
+
+type FailedBasicInfoReturnType = BaseBasicInfoReturnType & {
+  error: true;
+  message: string;
+};
+
+export type BasicInfoReturnType =
+  | SuccessBasicInfoReturnType
+  | FailedBasicInfoReturnType;
 
 export type ProfessorInfo = {
   name: string;
@@ -35,3 +55,25 @@ type FailedProfessorInfoReturnType = BaseProfessorInfoReturnType & {
 export type ProfessorInfoReturnType =
   | SuccessProfessorInfoReturnType
   | FailedProfessorInfoReturnType;
+
+export type UpdatedData = {
+  status: string;
+};
+
+type BaseUpdatedDataReturnType = {
+  error: boolean;
+};
+
+type SuccessUpdatedDataReturnType = BaseUpdatedDataReturnType & {
+  error: false;
+  data: UpdatedData;
+};
+
+type FailedUpdatedDataReturnType = BaseUpdatedDataReturnType & {
+  error: true;
+  message: string;
+};
+
+export type UpdatedDataReturnType =
+  | SuccessUpdatedDataReturnType
+  | FailedUpdatedDataReturnType;

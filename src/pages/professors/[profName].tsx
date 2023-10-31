@@ -8,7 +8,14 @@ const ProfName = () => {
   const { profName } = router.query;
   const { data } = useFetchProfessorInfo(profName);
 
-  return data ? <ProfessorPage info={data} /> : <LoadingSpinner />;
+  return data ? (
+    <ProfessorPage
+      info={data}
+      hyphenatedName={typeof profName === "string" ? profName : ""}
+    />
+  ) : (
+    <LoadingSpinner />
+  );
 };
 
 export default ProfName;

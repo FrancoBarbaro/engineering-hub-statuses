@@ -1,4 +1,4 @@
-import { firebaseApiFetcher } from "@/clients/firebase/firebase-fetcher";
+import { firebaseApiFetcher } from "@/clients/firebase/firebase-axios-functions";
 import type { ProfessorInfo, ProfessorInfoReturnType } from "@/common/types";
 
 export const getProfessorInfoFromName = async (
@@ -8,6 +8,9 @@ export const getProfessorInfoFromName = async (
     `professors/allInfo/${hyphenatedName}`
   );
   if (!firebaseResponse.success)
-    return { error: true, message: "An error occured retrieving planet info!" };
+    return {
+      error: true,
+      message: "An error occured retrieving professor info!",
+    };
   return { error: false, data: firebaseResponse.data };
 };

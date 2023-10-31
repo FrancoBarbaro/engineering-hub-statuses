@@ -38,3 +38,22 @@ export const firebaseApiFetcher = async <T = unknown>(
         ({ success: false, error: error.message } as FailedFirebaseResult)
     );
 };
+
+/**
+ * Patcher description
+ */
+export const firebaseApiPatcher = async <T = unknown>(
+  url: string,
+  key: string,
+  newValue: unknown
+): Promise<FirebaseResult<T>> => {
+  return firebaseAxiosClient
+    .patch(`${url}.json`, { [key]: newValue })
+    .then(
+      (res) => ({ success: true, data: res.data } as SuccessFirebaseResult<T>)
+    )
+    .catch(
+      (error: Error) =>
+        ({ success: false, error: error.message } as FailedFirebaseResult)
+    );
+};
