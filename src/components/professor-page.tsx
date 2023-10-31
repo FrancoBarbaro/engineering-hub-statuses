@@ -2,7 +2,6 @@ import { ProfessorInfo } from "@/common/types";
 import { ExternalLink } from "@/components/external-link";
 import { LoginModal } from "@/components/login-modal";
 import { StatusIcon } from "@/components/status-icon";
-import { CheckCircleIcon, InfoIcon, WarningIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
@@ -32,6 +31,7 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({ info }) => {
     status,
     email,
     officeLocation,
+    officePicture,
     officeHours,
     callendly,
   } = info;
@@ -50,10 +50,7 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({ info }) => {
           <Heading size="xs" textTransform="uppercase">
             Office Location
           </Heading>
-          <ExternalLink
-            text={officeLocation}
-            href="https://firebasestorage.googleapis.com/v0/b/engineering-hub-api.appspot.com/o/Engineering%20Hub%20Layout.jpg?alt=media&token=e601a0df-a2ba-4fa8-8c1d-5768d5d59f76&_gl=1*11zhi8m*_ga*MTgxMzc0MjM3NS4xNjk3NTcwNzE1*_ga_CW55HF8NVT*MTY5ODIwNDEwMC45LjEuMTY5ODIwNDUxMi41MC4wLjA."
-          />
+          <ExternalLink text={officeLocation} href={officePicture} />
         </Box>
         <Box>
           <Heading size="xs" textTransform="uppercase">

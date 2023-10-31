@@ -1,5 +1,5 @@
 import { FormControl, FormLabel, Input, Stack } from "@chakra-ui/react";
-import { useState, type FC, type FormEvent, LegacyRef } from "react";
+import { LegacyRef, useState, type FC, type FormEvent } from "react";
 
 type LoginFormProps = {
   onClose: () => void;
@@ -15,7 +15,12 @@ export const LoginForm: FC<LoginFormProps> = ({ onClose, initialFocusRef }) => {
     event.preventDefault();
 
     if (validInput) {
-			// TODO: authenticate(email, password);
+      // TODO: authenticate(email, password);
+      // TODO: have a chakra toast component tell the user wether their authentication failed or succeeded
+      // TODO: make sure that if a professor is signed in, they can only change their info and not others'
+      // the above leads me to question: should i even have an email input? the only way i can enforce the
+      // above is by checking wether the email associated with the professor page corresponds to the email
+      // of the user logged in
       setEmail("");
       setPassword("");
       onClose();
@@ -34,7 +39,7 @@ export const LoginForm: FC<LoginFormProps> = ({ onClose, initialFocusRef }) => {
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               placeholder="Your OU email"
-							ref={initialFocusRef}
+              ref={initialFocusRef}
             />
           </Stack>
           <Stack spacing={0.5}>

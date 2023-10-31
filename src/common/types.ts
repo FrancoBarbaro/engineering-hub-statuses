@@ -13,6 +13,7 @@ export type ProfessorInfo = {
   status: string;
   email: string;
   officeLocation: string;
+  officePicture: string;
   officeHours?: string;
   callendly?: string;
 };
