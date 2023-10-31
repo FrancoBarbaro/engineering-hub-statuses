@@ -41,16 +41,18 @@ export const LoginForm: FC<LoginFormProps> = ({
       onClose();
       setEmail("");
       setPassword("");
-      setLoggedIn(true);
 
       const dummyAuthPromise = new Promise((resolve) => {
-        setTimeout(() => resolve(200), 3000);
+        setTimeout(() => {
+          setLoggedIn(true);
+          resolve(200);
+        }, 2000);
       });
 
       toast.promise(dummyAuthPromise, {
         success: {
           title: "You're Authenticated!",
-          description: "You can now click on any field to edit it",
+          description: "You can now click on the status field to edit it",
         },
         error: {
           title: "Authentication Failed!",
