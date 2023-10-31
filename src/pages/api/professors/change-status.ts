@@ -26,5 +26,5 @@ export default async function handler(
     return res
       .status(500)
       .json({ message: "Changing professor status failed!" });
-  return res.status(200).json({ info: response.data });
+  return res.status(200).json({ updatedData: response.data });
 }

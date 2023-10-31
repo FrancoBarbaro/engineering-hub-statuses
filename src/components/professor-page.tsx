@@ -3,6 +3,7 @@ import { EditableField } from "@/components/editable-field";
 import { ExternalLink } from "@/components/external-link";
 import { LoginModal } from "@/components/login-modal";
 import { StatusIcon } from "@/components/status-icon";
+import { useChangeProfessorStatus } from "@/hooks/use-change-professor-status";
 import {
   Box,
   Button,
@@ -34,13 +35,15 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
     name,
     photo,
     bio,
-    status,
+    status: initialStatus,
     email,
     officeLocation,
     officePicture,
     officeHours,
     callendly,
   } = info;
+  const [status, setStatus] = useState(initialStatus);
+  useChangeProfessorStatus(hyphenatedName, status);
 
   return (
     <Flex m={5} justifyContent="center" flexWrap="wrap">
@@ -67,7 +70,7 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
             {loggedIn ? (
               <EditableField
                 initialValue={status}
-                hyphenatedName={hyphenatedName}
+                onChange={(newStatus: string) => setStatus(newStatus)}
               />
             ) : (
               <Text fontSize="sm" pl={1.5}>

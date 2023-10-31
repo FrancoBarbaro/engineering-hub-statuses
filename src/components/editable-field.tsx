@@ -1,4 +1,3 @@
-import { changeProfessorStatus } from "@/api-functions/change-professor-status";
 import { EditableControls } from "@/components/editable-field-controls";
 import {
   Editable,
@@ -13,12 +12,12 @@ import type { FC } from "react";
 
 type EditableFieldProps = {
   initialValue: string;
-  hyphenatedName: string;
+  onChange: (newValue: string) => void;
 };
 
 export const EditableField: FC<EditableFieldProps> = ({
   initialValue,
-  hyphenatedName,
+  onChange,
 }) => {
   return (
     <Editable
@@ -27,7 +26,8 @@ export const EditableField: FC<EditableFieldProps> = ({
       selectAllOnFocus={false}
       fontSize="sm"
       pl={1}
-      onSubmit={(newStatus) => changeProfessorStatus(hyphenatedName, newStatus)}
+      // onSubmit={(newStatus) => changeProfessorStatus(hyphenatedName, newStatus)}
+      onSubmit={onChange}
     >
       <Flex>
         <Tooltip label="Click to edit" shouldWrapChildren={true}>

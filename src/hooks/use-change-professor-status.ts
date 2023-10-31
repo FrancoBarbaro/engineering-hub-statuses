@@ -1,5 +1,4 @@
-// TODO: delete this
-export const changeProfessorStatus = async (
+export const useChangeProfessorStatus = async (
   hyphenatedName: string,
   newStatus: string
 ) => {
