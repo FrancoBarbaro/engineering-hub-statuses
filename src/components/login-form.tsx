@@ -49,8 +49,9 @@ export const LoginForm: FC<LoginFormProps> = ({
           if (email == correctEmail) {
             setLoggedIn(true);
             resolve(200);
+          } else {
+            fail();
           }
-          fail();
         }, 2000);
       });
 
