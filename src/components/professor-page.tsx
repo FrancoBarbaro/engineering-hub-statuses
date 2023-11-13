@@ -42,8 +42,8 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
     officeHours,
     callendly,
   } = info;
-  const [status, setStatus] = useState(initialStatus);
-  useChangeProfessorStatus(hyphenatedName, status);
+  const { changeProfessorStatus, updatedStatus } =
+    useChangeProfessorStatus(initialStatus);
 
   return (
     <Flex m={5} justifyContent="center" flexWrap="wrap">
@@ -72,15 +72,17 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
             Status
           </Heading>
           <Flex pt={2}>
-            <StatusIcon status={status} />
+            <StatusIcon status={updatedStatus} />
             {loggedIn ? (
               <EditableField
-                initialValue={status}
-                onChange={(newStatus: string) => setStatus(newStatus)}
+                initialValue={initialStatus}
+                onChange={(newStatus: string) =>
+                  changeProfessorStatus(hyphenatedName, newStatus)
+                }
               />
             ) : (
               <Text fontSize="sm" pl={1.5}>
-                {status}
+                {initialStatus}
               </Text>
             )}
           </Flex>
