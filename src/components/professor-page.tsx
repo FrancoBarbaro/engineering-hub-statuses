@@ -73,6 +73,7 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
           </Heading>
           <Flex pt={2}>
             <StatusIcon status={updatedStatus} />
+            {/* TODO: convert to dropdown */}
             {loggedIn ? (
               <EditableField
                 initialValue={initialStatus}
@@ -123,7 +124,7 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
           </Button>
         )}
       </Stack>
-      <LoginModal isOpen={isOpen} onClose={onClose} setLoggedIn={setLoggedIn} />
+      <LoginModal isOpen={isOpen} onClose={onClose} setLoggedIn={setLoggedIn} pageEmail={email} />
     </Flex>
   );
 };
