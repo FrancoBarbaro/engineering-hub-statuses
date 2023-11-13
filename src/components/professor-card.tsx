@@ -23,7 +23,6 @@ export const ProfessorCard: FC<ProfessorCardProps> = ({ info }) => {
 
   return (
     <LinkBox>
-      {/* TODO: make width responsive with {{ xs: 15em, sm: 20em, etc. }} */}
       <Card w="15em" m={4} borderRadius="lg">
         <CardBody>
           <Stack spacing={3}>
