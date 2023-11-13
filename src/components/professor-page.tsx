@@ -49,7 +49,13 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
     <Flex m={5} justifyContent="center" flexWrap="wrap">
       <Stack divider={<StackDivider />} spacing={3}>
         <Box>
-          <Image src={photo} alt={name} borderRadius="md" w="100%" />
+          <Image
+            src={photo}
+            alt={name}
+            borderRadius="md"
+            w="100%"
+            maxW="25em"
+          />
           <Heading size="md" mt={4} mb={2}>
             {name}
           </Heading>
