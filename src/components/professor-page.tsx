@@ -102,15 +102,15 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
           </Box>
         )}
         {callendly && !loggedIn && (
-          <ButtonGroup spacing={2}>
-            <LinkBox>
-              <Button variant="solid" colorScheme="blue">
+          <ButtonGroup spacing={2} w="100%">
+            <LinkBox w="50%">
+              <Button variant="solid" colorScheme="blue" w="100%">
                 <LinkOverlay href={callendly} target="_blank">
                   Schedule a Meeting
                 </LinkOverlay>
               </Button>
             </LinkBox>
-            <Button variant="ghost" colorScheme="blue" onClick={onOpen}>
+            <Button w="50%" variant="ghost" colorScheme="blue" onClick={onOpen}>
               Log In as Professor
             </Button>
           </ButtonGroup>
