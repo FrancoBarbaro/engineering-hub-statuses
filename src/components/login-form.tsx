@@ -18,12 +18,14 @@ type LoginFormProps = {
   onClose: () => void;
   initialFocusRef: LegacyRef<HTMLInputElement>;
   setLoggedIn: Dispatch<SetStateAction<boolean>>;
+  pageEmail: string;
 };
 
 export const LoginForm: FC<LoginFormProps> = ({
   onClose,
   initialFocusRef,
   setLoggedIn,
+  pageEmail,
 }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -44,8 +46,11 @@ export const LoginForm: FC<LoginFormProps> = ({
 
       const dummyAuthPromise = new Promise((resolve, fail) => {
         setTimeout(() => {
-          setLoggedIn(true);
-          resolve(200);
+          if (email == pageEmail) {
+            setLoggedIn(true);
+            resolve(200);
+          }
+          fail();
         }, 2000);
       });
 

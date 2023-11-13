@@ -15,12 +15,14 @@ type LoginModalProps = {
   isOpen: boolean;
   onClose: () => void;
   setLoggedIn: Dispatch<SetStateAction<boolean>>;
+  pageEmail: string;
 };
 
 export const LoginModal: FC<LoginModalProps> = ({
   isOpen,
   onClose,
   setLoggedIn,
+  pageEmail,
 }) => {
   const initialFocusRef = useRef(null);
 
@@ -35,6 +37,7 @@ export const LoginModal: FC<LoginModalProps> = ({
             onClose={onClose}
             initialFocusRef={initialFocusRef}
             setLoggedIn={setLoggedIn}
+            pageEmail={pageEmail}
           />
         </ModalBody>
         <ModalFooter>
