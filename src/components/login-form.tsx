@@ -58,10 +58,12 @@ export const LoginForm: FC<LoginFormProps> = ({
         success: {
           title: "You're Authenticated!",
           description: "You can now click on the status field to edit it",
+          duration: 3000,
         },
         error: {
           title: "Authentication Failed!",
           description: "Incorrect email or password",
+          duration: 3000,
         },
         loading: {
           title: "Checking Credentials...",
