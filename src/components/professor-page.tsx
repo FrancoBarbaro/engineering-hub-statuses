@@ -51,6 +51,7 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
 
   return (
     <Flex m={5} justifyContent="center" flexWrap="wrap">
+      {/* TODO: on large screens, maybe have a layout where the picture is on the left and the stack is on the right, both inside a larger centered div */}
       <Stack divider={<StackDivider />} spacing={3}>
         <Box>
           <Image
@@ -63,6 +64,7 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
           <Heading size="md" mt={4} mb={2}>
             {name}
           </Heading>
+          {/* TODO: make bio editable if authed */}
           <Text>{bio}</Text>
         </Box>
         <Box>
@@ -105,6 +107,7 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
           </Heading>
           <ExternalLink text={email} href={`mailto:${email}`} />
         </Box>
+        {/* TODO: make office hours editable if authed, make sure to implement a Textarea here instead of an Input */}
         {officeHours && (
           <Box>
             <Heading size="xs" textTransform="uppercase">
