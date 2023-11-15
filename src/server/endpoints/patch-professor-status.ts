@@ -4,7 +4,8 @@ import { getBasicInfo } from "@/server/endpoints/get-basic-info";
 
 export const patchProfessorStatus = async (
   hyphenatedName: string,
-  newStatus: string
+  newStatus: string,
+  authToken: string
 ): Promise<UpdatedDataReturnType> => {
   const getBasicInfoResponse = await getBasicInfo();
   if (getBasicInfoResponse.error)
@@ -20,7 +21,8 @@ export const patchProfessorStatus = async (
   const patchBasicInfoResponse = await firebaseApiPatcher<UpdatedData>(
     `professors/basicInfo/${index}`,
     "status",
-    newStatus
+    newStatus,
+    authToken
   );
   if (!patchBasicInfoResponse.success)
     return {
@@ -31,7 +33,8 @@ export const patchProfessorStatus = async (
   const patchProfessorInfoResponse = await firebaseApiPatcher<UpdatedData>(
     `professors/allInfo/${hyphenatedName}`,
     "status",
-    newStatus
+    newStatus,
+    authToken
   );
   if (!patchProfessorInfoResponse.success)
     return {

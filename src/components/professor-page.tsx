@@ -1,8 +1,10 @@
+import { auth } from "@/clients/firebase/firebase-app";
 import type { ProfessorInfo } from "@/common/types";
 import { EditableField } from "@/components/editable-field";
 import { ExternalLink } from "@/components/external-link";
 import { LoginModal } from "@/components/login-modal";
 import { StatusIcon } from "@/components/status-icon";
+import { FirebaseContext } from "@/context/firebase-context";
 import { useChangeProfessorStatus } from "@/hooks/use-change-professor-status";
 import {
   Box,
@@ -18,7 +20,8 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useState, type FC } from "react";
+import { signOut } from "firebase/auth";
+import { useContext, type FC } from "react";
 
 type ProfessorPageProps = {
   info: ProfessorInfo;
@@ -29,7 +32,7 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
   info,
   hyphenatedName,
 }) => {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const { authedUserEmail } = useContext(FirebaseContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     name,
@@ -42,6 +45,7 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
     officeHours,
     callendly,
   } = info;
+  const authedAsThisProfessor = authedUserEmail === email;
   const { changeProfessorStatus, updatedStatus } =
     useChangeProfessorStatus(initialStatus);
 
@@ -74,7 +78,7 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
           <Flex pt={2}>
             <StatusIcon status={updatedStatus} />
             {/* TODO: convert to dropdown */}
-            {loggedIn ? (
+            {authedAsThisProfessor ? (
               <EditableField
                 initialValue={initialStatus}
                 onChange={(newStatus: string) =>
@@ -104,7 +108,7 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
             </Text>
           </Box>
         )}
-        {callendly && !loggedIn && (
+        {callendly && !authedAsThisProfessor && (
           <ButtonGroup spacing={2} w="100%">
             <LinkBox w="50%">
               <Button variant="solid" colorScheme="blue" w="100%">
@@ -118,13 +122,22 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
             </Button>
           </ButtonGroup>
         )}
-        {!callendly && !loggedIn && (
+        {!callendly && !authedAsThisProfessor && (
           <Button variant="solid" colorScheme="blue" onClick={onOpen}>
             Log In as Professor
           </Button>
         )}
+        {authedAsThisProfessor && (
+          <Button
+            variant="solid"
+            colorScheme="blue"
+            onClick={() => signOut(auth)}
+          >
+            Log Out
+          </Button>
+        )}
       </Stack>
-      <LoginModal isOpen={isOpen} onClose={onClose} setLoggedIn={setLoggedIn} pageEmail={email} />
+      <LoginModal isOpen={isOpen} onClose={onClose} pageEmail={email} />
     </Flex>
   );
 };

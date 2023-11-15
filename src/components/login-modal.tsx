@@ -9,19 +9,17 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/react";
-import { useRef, type Dispatch, type FC, type SetStateAction } from "react";
+import { useRef, type FC } from "react";
 
 type LoginModalProps = {
   isOpen: boolean;
   onClose: () => void;
-  setLoggedIn: Dispatch<SetStateAction<boolean>>;
   pageEmail: string;
 };
 
 export const LoginModal: FC<LoginModalProps> = ({
   isOpen,
   onClose,
-  setLoggedIn,
   pageEmail,
 }) => {
   const initialFocusRef = useRef(null);
@@ -36,7 +34,6 @@ export const LoginModal: FC<LoginModalProps> = ({
           <LoginForm
             onClose={onClose}
             initialFocusRef={initialFocusRef}
-            setLoggedIn={setLoggedIn}
             pageEmail={pageEmail}
           />
         </ModalBody>

@@ -1,3 +1,4 @@
+import { auth } from "@/clients/firebase/firebase-app";
 import {
   FormControl,
   FormLabel,
@@ -5,32 +6,37 @@ import {
   Stack,
   useToast,
 } from "@chakra-ui/react";
-import {
-  useState,
-  type Dispatch,
-  type FC,
-  type FormEvent,
-  type LegacyRef,
-  type SetStateAction,
-} from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { useState, type FC, type FormEvent, type LegacyRef } from "react";
 
 type LoginFormProps = {
   onClose: () => void;
   initialFocusRef: LegacyRef<HTMLInputElement>;
-  setLoggedIn: Dispatch<SetStateAction<boolean>>;
   pageEmail: string;
 };
 
 export const LoginForm: FC<LoginFormProps> = ({
   onClose,
   initialFocusRef,
-  setLoggedIn,
   pageEmail,
 }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const validInput = email.trim() !== "" && password.trim() !== "";
   const toast = useToast();
+
+  const signInHandler = async () => {
+    if (email !== pageEmail) {
+      return false;
+    }
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  };
 
   const submitHandler = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -39,36 +45,31 @@ export const LoginForm: FC<LoginFormProps> = ({
       return;
     }
 
-    onClose();
-    setEmail("");
-    setPassword("");
-
-    const dummyAuthPromise = new Promise((resolve, fail) => {
-      setTimeout(() => {
-        if (email == pageEmail) {
-          setLoggedIn(true);
-          resolve(200);
-        }
-        fail();
-      }, 2000);
+    const authStatusPromise = new Promise(async (resolve, fail) => {
+      (await signInHandler()) ? resolve(200) : fail();
     });
 
-    toast.promise(dummyAuthPromise, {
+    onClose();
+
+    toast.promise(authStatusPromise, {
       success: {
         title: "You're Authenticated!",
         description: "You can now click on the status field to edit it",
-        duration: 3000,
+        duration: 2000,
       },
       error: {
         title: "Authentication Failed!",
         description: "Incorrect email or password",
-        duration: 3000,
+        duration: 2000,
       },
       loading: {
         title: "Checking Credentials...",
         description: "This may take a few seconds",
       },
     });
+
+    setEmail("");
+    setPassword("");
   };
 
   return (
@@ -79,6 +80,7 @@ export const LoginForm: FC<LoginFormProps> = ({
             <FormLabel>Email</FormLabel>
             <Input
               type="email"
+              id="email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               placeholder="Your OU email"
@@ -89,6 +91,7 @@ export const LoginForm: FC<LoginFormProps> = ({
             <FormLabel>Password</FormLabel>
             <Input
               type="password"
+              id="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               placeholder="Your password for this site"

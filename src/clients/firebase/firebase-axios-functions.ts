@@ -45,10 +45,11 @@ export const firebaseApiFetcher = async <T = unknown>(
 export const firebaseApiPatcher = async <T = unknown>(
   url: string,
   key: string,
-  newValue: unknown
+  newValue: unknown,
+  authToken: string
 ): Promise<FirebaseResult<T>> => {
   return firebaseAxiosClient
-    .patch(`${url}.json`, { [key]: newValue })
+    .patch(`${url}.json?auth=${authToken}`, { [key]: newValue })
     .then(
       (res) => ({ success: true, data: res.data } as SuccessFirebaseResult<T>)
     )
