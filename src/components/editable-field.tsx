@@ -26,7 +26,6 @@ export const EditableField: FC<EditableFieldProps> = ({
       selectAllOnFocus={false}
       fontSize="sm"
       pl={1}
-      // onSubmit={(newStatus) => changeProfessorStatus(hyphenatedName, newStatus)}
       onSubmit={onChange}
     >
       <Flex>

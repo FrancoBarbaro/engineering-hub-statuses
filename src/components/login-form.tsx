@@ -7,7 +7,13 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useState, type FC, type FormEvent, type LegacyRef } from "react";
+import {
+  useState,
+  type ChangeEvent,
+  type FC,
+  type FormEvent,
+  type LegacyRef,
+} from "react";
 
 type LoginFormProps = {
   onClose: () => void;
@@ -82,7 +88,9 @@ export const LoginForm: FC<LoginFormProps> = ({
               type="email"
               id="email"
               value={email}
-              onChange={(event) => setEmail(event.target.value)}
+              onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                setEmail(event.target.value)
+              }
               placeholder="Your OU email"
               ref={initialFocusRef}
             />
@@ -93,7 +101,9 @@ export const LoginForm: FC<LoginFormProps> = ({
               type="password"
               id="password"
               value={password}
-              onChange={(event) => setPassword(event.target.value)}
+              onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                setPassword(event.target.value)
+              }
               placeholder="Your password for this site"
             />
           </Stack>

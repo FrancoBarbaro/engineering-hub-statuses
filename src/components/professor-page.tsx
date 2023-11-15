@@ -77,7 +77,14 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
           </Heading>
           <Flex pt={2}>
             <StatusIcon status={updatedStatus} />
-            {/* TODO: convert to dropdown */}
+            {/* TODO: convert to dropdown. IDEA: have a dropdown that a set of statuses that the professor
+						has used before (load them from the database) and a "Custom" option at the bottom. Selecting "Custom"
+						should trigger a state change that makes an EditableField appear, and whatever they type in it should
+						be set as their status AND added to the list of pre-existing statuses in the database, then we can
+						hide the EditableField again */}
+            {/* One potential drawback of the approach above: professors may set a custom status that they only intend
+						to use once, and ones who do this a lot would have very large dropdowns, which would remove some of the
+						benefit of a dropdown */}
             {authedAsThisProfessor ? (
               <EditableField
                 initialValue={initialStatus}
