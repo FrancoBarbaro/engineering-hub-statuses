@@ -35,42 +35,40 @@ export const LoginForm: FC<LoginFormProps> = ({
   const submitHandler = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (validInput) {
-      // TODO: make sure that if a professor is signed in, they can only change their info and not others'
-      // the above leads me to question: should i even have an email input? the only way i can enforce the
-      // above is by checking wether the email associated with the professor page corresponds to the email
-      // of the user logged in
-      onClose();
-      setEmail("");
-      setPassword("");
-
-      const dummyAuthPromise = new Promise((resolve, fail) => {
-        setTimeout(() => {
-          if (email == pageEmail) {
-            setLoggedIn(true);
-            resolve(200);
-          }
-          fail();
-        }, 2000);
-      });
-
-      toast.promise(dummyAuthPromise, {
-        success: {
-          title: "You're Authenticated!",
-          description: "You can now click on the status field to edit it",
-          duration: 3000,
-        },
-        error: {
-          title: "Authentication Failed!",
-          description: "Incorrect email or password",
-          duration: 3000,
-        },
-        loading: {
-          title: "Checking Credentials...",
-          description: "This may take a few seconds",
-        },
-      });
+    if (!validInput) {
+      return;
     }
+
+    onClose();
+    setEmail("");
+    setPassword("");
+
+    const dummyAuthPromise = new Promise((resolve, fail) => {
+      setTimeout(() => {
+        if (email == pageEmail) {
+          setLoggedIn(true);
+          resolve(200);
+        }
+        fail();
+      }, 2000);
+    });
+
+    toast.promise(dummyAuthPromise, {
+      success: {
+        title: "You're Authenticated!",
+        description: "You can now click on the status field to edit it",
+        duration: 3000,
+      },
+      error: {
+        title: "Authentication Failed!",
+        description: "Incorrect email or password",
+        duration: 3000,
+      },
+      loading: {
+        title: "Checking Credentials...",
+        description: "This may take a few seconds",
+      },
+    });
   };
 
   return (
