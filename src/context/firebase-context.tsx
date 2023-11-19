@@ -31,6 +31,8 @@ export const FirebaseContextProvider: FC<FirebaseContextProviderProps> = ({
     setAuthedUserEmail(newAuthedUserEmail);
   });
 
+	// TODO: add firebaase app check
+
   return (
     <FirebaseContext.Provider value={{ authToken, authedUserEmail }}>
       {children}
