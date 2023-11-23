@@ -24,7 +24,7 @@ import {
   useMediaQuery,
 } from "@chakra-ui/react";
 import { signOut } from "firebase/auth";
-import { useRouter } from "next/router";
+import NextLink from "next/link";
 import { useContext, type FC } from "react";
 
 type ProfessorPageProps = {
@@ -41,7 +41,6 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
   const [widthLargerThan32em] = useMediaQuery("(min-width: 32em)");
   const { authedUserEmail } = useContext(FirebaseContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const router = useRouter();
   const {
     name,
     photo,
@@ -61,16 +60,17 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
     <>
       {widthLargerThan32em && (
         <IconButton
+          as={NextLink}
           aria-label="Back"
           icon={<ArrowBackIcon />}
           pos="absolute"
           ml={5}
           borderRadius="full"
           size="md"
-          onClick={router.back}
+          href="/"
         />
       )}
-      <Flex m={5} justifyContent="center" flexWrap="wrap">
+      <Flex m={5} justifyContent="center">
         {/* TODO: on large screens, maybe have a layout where the picture is on the left and the stack is on the right, both inside a larger centered div */}
         <Stack divider={<StackDivider />} spacing={3}>
           <Box>
