@@ -21,7 +21,6 @@ export const useFetchProfessorInfo = (
     { errorRetryCount: 2 }
   );
 
-	// TODO: shouldn't this be in use-change-professor-status.ts?
   // updates the data within the swr instance
   const changeSwrData = (data: DataType) => {
     mutate(`/api/professors/${hyphenatedName}`, data);
