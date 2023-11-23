@@ -2,9 +2,10 @@ import { firebaseApiPatcher } from "@/clients/firebase/firebase-axios-functions"
 import type { UpdatedData, UpdatedDataReturnType } from "@/common/types";
 import { getBasicInfo } from "@/server/endpoints/get-basic-info";
 
-export const patchProfessorStatus = async (
+export const patchProfessorAttribute = async (
   hyphenatedName: string,
-  newStatus: string,
+	attribute: string,
+  newValue: string,
   authToken: string
 ): Promise<UpdatedDataReturnType> => {
   const getBasicInfoResponse = await getBasicInfo();
@@ -20,8 +21,8 @@ export const patchProfessorStatus = async (
 
   const patchBasicInfoResponse = await firebaseApiPatcher<UpdatedData>(
     `professors/basicInfo/${index}`,
-    "status",
-    newStatus,
+    attribute,
+    newValue,
     authToken
   );
   if (!patchBasicInfoResponse.success)
@@ -32,8 +33,8 @@ export const patchProfessorStatus = async (
 
   const patchProfessorInfoResponse = await firebaseApiPatcher<UpdatedData>(
     `professors/allInfo/${hyphenatedName}`,
-    "status",
-    newStatus,
+    attribute,
+    newValue,
     authToken
   );
   if (!patchProfessorInfoResponse.success)

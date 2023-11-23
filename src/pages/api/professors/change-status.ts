@@ -1,17 +1,18 @@
-import { patchProfessorStatus } from "@/server/endpoints/patch-professor-status";
+import { patchProfessorAttribute } from "@/server/endpoints/patch-professor-status";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { z } from "zod";
 
-const ChangeStatusQuerySchema = z.object({
+const ChangeAttributeQuerySchema = z.object({
   hyphenatedName: z.string(),
-  newStatus: z.string(),
+  attribute: z.string(),
+  newValue: z.string(),
 });
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const validatedSchemaResult = ChangeStatusQuerySchema.safeParse(req.body);
+  const validatedSchemaResult = ChangeAttributeQuerySchema.safeParse(req.body);
 
   if (!validatedSchemaResult.success) {
     return res
@@ -19,7 +20,7 @@ export default async function handler(
       .json({ message: validatedSchemaResult.error.message });
   }
 
-  const { hyphenatedName, newStatus } = validatedSchemaResult.data;
+  const { hyphenatedName, attribute, newValue } = validatedSchemaResult.data;
   const authToken = req.headers.authorization?.replace("Bearer ", "");
 
   if (!authToken)
@@ -27,12 +28,17 @@ export default async function handler(
       .status(401)
       .json({ message: "Request did not include an auth token!" });
 
-  const response = await patchProfessorStatus(hyphenatedName, newStatus, authToken);
+  const response = await patchProfessorAttribute(
+    hyphenatedName,
+    attribute,
+    newValue,
+    authToken
+  );
 
   if (response.error)
     return res
       .status(500)
       .json({ message: "Changing professor status failed!" });
-	
+
   return res.status(200).json({ updatedData: response.data });
 }

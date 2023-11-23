@@ -1,21 +1,33 @@
 import { FirebaseContext } from "@/context/firebase-context";
 import { useContext, useState } from "react";
 
-// TODO: change generalize this hook to be able to change any professor attribute that is passed
-export const useChangeProfessorStatus = (initialStatus: string) => {
-  const [updatedStatus, setUpdatedStatus] = useState(initialStatus);
+export const useChangeProfessorAttributes = (
+  initialBio: string,
+  initialStatus: string,
+  initialOfficeHours: string | undefined
+) => {
+  const [bio, setBio] = useState(initialBio);
+  const [status, setStatus] = useState(initialStatus);
+  const [officeHours, setOfficeHours] = useState(initialOfficeHours);
   const { authToken } = useContext(FirebaseContext);
 
-  const changeProfessorStatus = async (
+  const changeProfessorAttribute = async (
     hyphenatedName: string,
-    newStatus: string
+    attribute: string,
+    newValue: string
   ) => {
     if (!authToken) {
       throw new Error("Request did not include the required credentials!");
     }
 
-    // updatedStatus would not yet be updated at this point, so this is comparing it to the previous status
-    if (newStatus === updatedStatus) {
+    const guardConditions = [
+      attribute === "bio" && newValue === bio,
+      attribute === "status" && newValue === status,
+      attribute === "officeHours" && newValue === officeHours,
+    ];
+
+    // makes sure that the attribute is not being changed to the same value
+    if (guardConditions.some(Boolean)) {
       return;
     }
 
@@ -25,7 +37,7 @@ export const useChangeProfessorStatus = (initialStatus: string) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${authToken}`,
       },
-      body: JSON.stringify({ hyphenatedName, newStatus }),
+      body: JSON.stringify({ hyphenatedName, attribute, newValue }),
     });
 
     if (!res.ok) {
@@ -38,8 +50,19 @@ export const useChangeProfessorStatus = (initialStatus: string) => {
       return;
     }
 
-    setUpdatedStatus(data.updatedData.status);
+    if (attribute === "bio") {
+      setBio(data.updatedData.bio);
+    } else if (attribute === "status") {
+      setStatus(data.updatedData.status);
+    } else if (attribute === "officeHours") {
+      setOfficeHours(data.updatedData.officeHours);
+    }
   };
 
-  return { changeProfessorStatus, updatedStatus, setUpdatedStatus };
+  return {
+    bio,
+    status,
+    officeHours,
+    changeProfessorAttribute,
+  };
 };

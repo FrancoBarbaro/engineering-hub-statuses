@@ -5,7 +5,7 @@ import { ExternalLink } from "@/components/external-link";
 import { LoginModal } from "@/components/login-modal";
 import { StatusIcon } from "@/components/status-icon";
 import { FirebaseContext } from "@/context/firebase-context";
-import { useChangeProfessorStatus } from "@/hooks/use-change-professor-status";
+import { useChangeProfessorAttributes } from "@/hooks/use-change-professor-status";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import {
   Box,
@@ -44,17 +44,17 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
   const {
     name,
     photo,
-    bio,
+    bio: initialBio,
     status: initialStatus,
     email,
     officeLocation,
     officePicture,
-    officeHours,
+    officeHours: initialOfficeHours,
     callendly,
   } = info;
   const authedAsThisProfessor = authedUserEmail === email;
-  const { changeProfessorStatus, updatedStatus } =
-    useChangeProfessorStatus(initialStatus);
+  const { bio, status, officeHours, changeProfessorAttribute } =
+    useChangeProfessorAttributes(initialBio, initialStatus, initialOfficeHours);
 
   return (
     <>
@@ -98,7 +98,7 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
               Status
             </Heading>
             <Flex pt={2}>
-              <StatusIcon status={updatedStatus} />
+              <StatusIcon status={status} />
               {/* TODO: convert to dropdown. IDEA: have a dropdown that a set of statuses that the professor
 						has used before (load them from the database) and a "Custom" option at the bottom. Selecting "Custom"
 						should trigger a state change that makes an EditableField appear, and whatever they type in it should
@@ -109,16 +109,21 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
 						benefit of a dropdown */}
               {authedAsThisProfessor ? (
                 <EditableField
-                  initialValue={updatedStatus}
+                  initialValue={status}
                   onChange={(newStatus: string) => {
-                    changeProfessorStatus(hyphenatedName, newStatus);
+                    // TODO: maybe i can pass in the hyphenatedName to the hook instead of the function
+                    changeProfessorAttribute(
+                      hyphenatedName,
+                      "status",
+                      newStatus
+                    );
                     info.status = newStatus;
                     changeSwrData({ info });
                   }}
                 />
               ) : (
                 <Text fontSize="sm" pl={1.5}>
-                  {updatedStatus}
+                  {status}
                 </Text>
               )}
             </Flex>
