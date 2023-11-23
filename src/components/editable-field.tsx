@@ -11,14 +11,14 @@ import type { FC } from "react";
 
 type EditableFieldProps = {
   initialValue: string;
-  onChange: (newValue: string) => void;
+  onSubmit: (newValue: string) => void;
 	fontSize?: string;
   [chakraProp: string]: any;
 };
 
 export const EditableField: FC<EditableFieldProps> = ({
   initialValue,
-  onChange,
+  onSubmit,
   fontSize,
   ...chakraProps
 }) => {
@@ -27,7 +27,7 @@ export const EditableField: FC<EditableFieldProps> = ({
       defaultValue={initialValue}
       isPreviewFocusable={true}
       selectAllOnFocus={false}
-      onSubmit={onChange}
+      onSubmit={onSubmit}
 			fontSize={fontSize}
       {...chakraProps}
     >

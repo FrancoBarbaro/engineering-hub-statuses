@@ -84,14 +84,12 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
             <Heading size="md" mt={4} mb={2}>
               {name}
             </Heading>
-            {/* TODO: make bio editable if authed */}
-            {/* <Text>{bio}</Text> */}
             {authedAsThisProfessor ? (
               <EditableField
                 pos="relative"
                 left={-1}
                 initialValue={bio}
-                onChange={(newBio: string) => {
+                onSubmit={(newBio: string) => {
                   changeProfessorAttribute(hyphenatedName, "bio", newBio);
                   info.bio = newBio;
                   changeSwrData({ info });
@@ -126,7 +124,7 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
                   fontSize="sm"
                   pl={1}
                   initialValue={status}
-                  onChange={(newStatus: string) => {
+                  onSubmit={(newStatus: string) => {
                     // TODO: maybe i can pass in the hyphenatedName to the hook instead of the function
                     changeProfessorAttribute(
                       hyphenatedName,
