@@ -2,6 +2,7 @@ import { FirebaseContext } from "@/context/firebase-context";
 import { useContext, useState } from "react";
 
 export const useChangeProfessorAttributes = (
+  hyphenatedName: string,
   initialBio: string,
   initialStatus: string,
   initialOfficeHours: string | undefined
@@ -12,7 +13,6 @@ export const useChangeProfessorAttributes = (
   const { authToken } = useContext(FirebaseContext);
 
   const changeProfessorAttribute = async (
-    hyphenatedName: string,
     attribute: string,
     newValue: string
   ) => {

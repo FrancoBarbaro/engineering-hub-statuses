@@ -54,7 +54,12 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
   } = info;
   const authedAsThisProfessor = authedUserEmail === email;
   const { bio, status, officeHours, changeProfessorAttribute } =
-    useChangeProfessorAttributes(initialBio, initialStatus, initialOfficeHours);
+    useChangeProfessorAttributes(
+      hyphenatedName,
+      initialBio,
+      initialStatus,
+      initialOfficeHours
+    );
 
   return (
     <>
@@ -90,7 +95,7 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
                 left={-1}
                 initialValue={bio}
                 onSubmit={(newBio: string) => {
-                  changeProfessorAttribute(hyphenatedName, "bio", newBio);
+                  changeProfessorAttribute("bio", newBio);
                   info.bio = newBio;
                   changeSwrData({ info });
                 }}
@@ -125,12 +130,7 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
                   pl={1}
                   initialValue={status}
                   onSubmit={(newStatus: string) => {
-                    // TODO: maybe i can pass in the hyphenatedName to the hook instead of the function
-                    changeProfessorAttribute(
-                      hyphenatedName,
-                      "status",
-                      newStatus
-                    );
+                    changeProfessorAttribute("status", newStatus);
                     info.status = newStatus;
                     changeSwrData({ info });
                   }}
