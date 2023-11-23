@@ -5,7 +5,7 @@ import { ExternalLink } from "@/components/external-link";
 import { LoginModal } from "@/components/login-modal";
 import { StatusIcon } from "@/components/status-icon";
 import { FirebaseContext } from "@/context/firebase-context";
-import { useChangeProfessorAttributes } from "@/hooks/use-change-professor-status";
+import { useChangeProfessorAttributes } from "@/hooks/use-change-professor-attributes";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import {
   Box,

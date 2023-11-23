@@ -1,4 +1,4 @@
-import { patchProfessorAttribute } from "@/server/endpoints/patch-professor-status";
+import { patchProfessorAttribute } from "@/server/endpoints/patch-professor-attribute";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { z } from "zod";
 
@@ -38,7 +38,7 @@ export default async function handler(
   if (response.error)
     return res
       .status(500)
-      .json({ message: "Changing professor status failed!" });
+      .json({ message: "Changing professor attribute failed!" });
 
   return res.status(200).json({ updatedData: response.data });
 }

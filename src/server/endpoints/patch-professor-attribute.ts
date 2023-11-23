@@ -4,7 +4,7 @@ import { getBasicInfo } from "@/server/endpoints/get-basic-info";
 
 export const patchProfessorAttribute = async (
   hyphenatedName: string,
-	attribute: string,
+  attribute: string,
   newValue: string,
   authToken: string
 ): Promise<UpdatedDataReturnType> => {
@@ -13,7 +13,7 @@ export const patchProfessorAttribute = async (
     return {
       error: true,
       message:
-        "An error occured while fetching basic info before changing professor's status!",
+        "An error occured while fetching basic info before changing professor attribute!",
     };
   const index = getBasicInfoResponse.data.findIndex(
     (obj) => obj.hyphenatedName === hyphenatedName
@@ -28,7 +28,7 @@ export const patchProfessorAttribute = async (
   if (!patchBasicInfoResponse.success)
     return {
       error: true,
-      message: "An error occured while changing professor's status!",
+      message: "An error occured while changing professor attribute!",
     };
 
   const patchProfessorInfoResponse = await firebaseApiPatcher<UpdatedData>(
@@ -40,7 +40,7 @@ export const patchProfessorAttribute = async (
   if (!patchProfessorInfoResponse.success)
     return {
       error: true,
-      message: "An error occured while changing professor's status!",
+      message: "An error occured while changing professor attribute!",
     };
   return { error: false, data: patchProfessorInfoResponse.data };
 };

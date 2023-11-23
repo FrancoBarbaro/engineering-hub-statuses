@@ -31,7 +31,7 @@ export const useChangeProfessorAttributes = (
       return;
     }
 
-    const res = await fetch("/api/professors/change-status", {
+    const res = await fetch("/api/professors/change-attribute", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
