@@ -68,9 +68,10 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
           as={NextLink}
           aria-label="Back"
           icon={<ArrowBackIcon />}
-          pos="absolute"
-          ml={5}
           borderRadius="full"
+          pos="fixed"
+          top={5}
+          left={5}
           size="md"
           href="/"
         />
