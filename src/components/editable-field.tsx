@@ -4,7 +4,6 @@ import {
   EditableInput,
   EditablePreview,
   Flex,
-  Input,
   Tooltip,
 } from "@chakra-ui/react";
 import type { FC } from "react";
@@ -12,7 +11,7 @@ import type { FC } from "react";
 type EditableFieldProps = {
   initialValue: string;
   onSubmit: (newValue: string) => void;
-	fontSize?: string;
+  fontSize?: string;
   [chakraProp: string]: any;
 };
 
@@ -27,21 +26,17 @@ export const EditableField: FC<EditableFieldProps> = ({
       defaultValue={initialValue}
       isPreviewFocusable={true}
       selectAllOnFocus={false}
+      submitOnBlur={false}
       onSubmit={onSubmit}
-			fontSize={fontSize}
+      fontSize={fontSize}
       {...chakraProps}
     >
       <Flex>
         <Tooltip label="Click to edit" shouldWrapChildren={true} hasArrow>
           <EditablePreview px={1} _hover={{ background: "gray.100" }} />
         </Tooltip>
-        <Input
-          pl={1}
-          mr={1}
-          fontSize={fontSize}
-          height="fit-content"
-          as={EditableInput}
-        />
+        {/* TODO: prevent from changing to "", required prop doesn't do the trick */}
+        <EditableInput pl={1} mr={1} fontSize={fontSize} h="fit-content" />
         <EditableControls />
       </Flex>
     </Editable>

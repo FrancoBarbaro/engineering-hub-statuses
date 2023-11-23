@@ -3,6 +3,7 @@ import type { ProfessorInfo } from "@/common/types";
 import { EditableField } from "@/components/editable-field";
 import { ExternalLink } from "@/components/external-link";
 import { LoginModal } from "@/components/login-modal";
+import { MultiLineEditableField } from "@/components/multi-line-editable-field";
 import { StatusIcon } from "@/components/status-icon";
 import { FirebaseContext } from "@/context/firebase-context";
 import { useChangeProfessorAttributes } from "@/hooks/use-change-professor-attributes";
@@ -87,13 +88,14 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
               w="100%"
               maxW="25em"
             />
-            <Heading size="md" mt={4} mb={2}>
+            <Heading size="md" mt={4}>
               {name}
             </Heading>
             {authedAsThisProfessor ? (
               <EditableField
                 pos="relative"
                 left={-1}
+                top={1}
                 initialValue={bio}
                 onSubmit={(newBio: string) => {
                   changeProfessorAttribute("bio", newBio);
@@ -112,10 +114,14 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
             <ExternalLink text={officeLocation} href={officePicture} />
           </Box>
           <Box>
-            <Heading size="xs" textTransform="uppercase">
+            <Heading
+              size="xs"
+              textTransform="uppercase"
+              pb={authedAsThisProfessor ? 1 : 2}
+            >
               Status
             </Heading>
-            <Flex pt={2}>
+            <Flex>
               <StatusIcon status={status} />
               {/* TODO: convert to dropdown. IDEA: have a dropdown that a set of statuses that the professor
 						has used before (load them from the database) and a "Custom" option at the bottom. Selecting "Custom"
@@ -137,7 +143,7 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
                   }}
                 />
               ) : (
-                <Text fontSize="sm" pl={1.5}>
+                <Text fontSize="sm" pl={2}>
                   {status}
                 </Text>
               )}
@@ -149,15 +155,29 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
             </Heading>
             <ExternalLink text={email} href={`mailto:${email}`} />
           </Box>
-          {/* TODO: make office hours editable if authed, make sure to implement a Textarea here instead of an Input */}
           {officeHours && (
             <Box>
-              <Heading size="xs" textTransform="uppercase">
+              <Heading
+                size="xs"
+                textTransform="uppercase"
+                pb={authedAsThisProfessor ? 1 : 2}
+              >
                 Office Hours
               </Heading>
-              <Text pt={2} fontSize="sm">
-                {officeHours}
-              </Text>
+              {authedAsThisProfessor ? (
+                <MultiLineEditableField
+                  initialValue={officeHours}
+                  onSubmit={(newOfficeHours: string) => {
+                    changeProfessorAttribute("officeHours", newOfficeHours);
+                    info.officeHours = newOfficeHours;
+                    changeSwrData({ info });
+                  }}
+                />
+              ) : (
+                <Text pt={2} fontSize="sm" whiteSpace="pre-wrap">
+                  {officeHours}
+                </Text>
+              )}
             </Box>
           )}
           {callendly && !authedAsThisProfessor && (

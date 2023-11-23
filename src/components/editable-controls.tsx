@@ -2,12 +2,25 @@ import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 import { ButtonGroup, IconButton, useEditableControls } from "@chakra-ui/react";
 import { FC } from "react";
 
-export const EditableControls: FC = () => {
+type EditableControlsProps = {
+  justifyContent?: string;
+};
+
+export const EditableControls: FC<EditableControlsProps> = ({
+  justifyContent,
+}) => {
   const { isEditing, getSubmitButtonProps, getCancelButtonProps } =
     useEditableControls();
 
+  // TODO: add edit button?
   return isEditing ? (
-    <ButtonGroup size="xs" w="full" spacing={1} my="auto">
+    <ButtonGroup
+      size="xs"
+      w="full"
+      spacing={1}
+      my="auto"
+      justifyContent={justifyContent}
+    >
       <IconButton
         icon={<CheckIcon />}
         {...getSubmitButtonProps()}
