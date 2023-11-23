@@ -6,11 +6,12 @@ import { useRouter } from "next/router";
 const ProfName = () => {
   const router = useRouter();
   const { profName } = router.query;
-  const { data } = useFetchProfessorInfo(profName);
+  const { data, changeSwrData } = useFetchProfessorInfo(profName);
 
   return data ? (
     <ProfessorPage
       info={data}
+      changeSwrData={changeSwrData}
       hyphenatedName={typeof profName === "string" ? profName : ""}
     />
   ) : (

@@ -25,11 +25,13 @@ import { useContext, type FC } from "react";
 
 type ProfessorPageProps = {
   info: ProfessorInfo;
+  changeSwrData: (data: { info: ProfessorInfo }) => void;
   hyphenatedName: string;
 };
 
 export const ProfessorPage: FC<ProfessorPageProps> = ({
   info,
+  changeSwrData,
   hyphenatedName,
 }) => {
   const { authedUserEmail } = useContext(FirebaseContext);
@@ -52,7 +54,7 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
   return (
     <Flex m={5} justifyContent="center" flexWrap="wrap">
       {/* TODO: on large screens, maybe have a layout where the picture is on the left and the stack is on the right, both inside a larger centered div */}
-			{/* TODO: add a back button */}
+      {/* TODO: add a back button */}
       <Stack divider={<StackDivider />} spacing={3}>
         <Box>
           <Image
@@ -90,14 +92,16 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
 						benefit of a dropdown */}
             {authedAsThisProfessor ? (
               <EditableField
-                initialValue={initialStatus}
-                onChange={(newStatus: string) =>
-                  changeProfessorStatus(hyphenatedName, newStatus)
-                }
+                initialValue={updatedStatus}
+                onChange={(newStatus: string) => {
+                  changeProfessorStatus(hyphenatedName, newStatus);
+                  info.status = newStatus;
+                  changeSwrData({ info });
+                }}
               />
             ) : (
               <Text fontSize="sm" pl={1.5}>
-                {initialStatus}
+                {updatedStatus}
               </Text>
             )}
           </Flex>

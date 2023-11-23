@@ -1,6 +1,5 @@
 import type { ProfessorInfo } from "@/common/types";
-import useSWR from "swr";
-
+import useSWR, { mutate } from "swr";
 type DataType = { info: ProfessorInfo };
 
 const fetcher = async (url: RequestInfo) => {
@@ -21,5 +20,12 @@ export const useFetchProfessorInfo = (
     fetcher,
     { errorRetryCount: 2 }
   );
-  return { data: data?.info };
+
+	// TODO: shouldn't this be in use-change-professor-status.ts?
+  // updates the data within the swr instance
+  const changeSwrData = (data: DataType) => {
+    mutate(`/api/professors/${hyphenatedName}`, data);
+  };
+
+  return { data: data?.info, changeSwrData };
 };

@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 
 // TODO: change generalize this hook to be able to change any professor attribute that is passed
 export const useChangeProfessorStatus = (initialStatus: string) => {
-	const [updatedStatus, setUpdatedStatus] = useState(initialStatus);
+  const [updatedStatus, setUpdatedStatus] = useState(initialStatus);
   const { authToken } = useContext(FirebaseContext);
 
   const changeProfessorStatus = async (
@@ -41,5 +41,5 @@ export const useChangeProfessorStatus = (initialStatus: string) => {
     setUpdatedStatus(data.updatedData.status);
   };
 
-  return { changeProfessorStatus, updatedStatus };
+  return { changeProfessorStatus, updatedStatus, setUpdatedStatus };
 };
