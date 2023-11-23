@@ -11,8 +11,8 @@ const ProfName = () => {
   return data ? (
     <ProfessorPage
       info={data}
-      changeSwrData={changeSwrData}
       hyphenatedName={typeof profName === "string" ? profName : ""}
+      changeSwrData={changeSwrData}
     />
   ) : (
     <LoadingSpinner />

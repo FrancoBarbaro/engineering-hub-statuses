@@ -29,14 +29,14 @@ import { useContext, type FC } from "react";
 
 type ProfessorPageProps = {
   info: ProfessorInfo;
-  changeSwrData: (data: { info: ProfessorInfo }) => void;
   hyphenatedName: string;
+  changeSwrData: (data: { info: ProfessorInfo }) => void;
 };
 
 export const ProfessorPage: FC<ProfessorPageProps> = ({
   info,
-  changeSwrData,
   hyphenatedName,
+  changeSwrData,
 }) => {
   const [widthLargerThan32em] = useMediaQuery("(min-width: 32em)");
   const { authedUserEmail } = useContext(FirebaseContext);
