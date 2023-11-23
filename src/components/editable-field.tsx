@@ -1,4 +1,4 @@
-import { EditableControls } from "@/components/editable-field-controls";
+import { EditableControls } from "@/components/editable-controls";
 import {
   Editable,
   EditableInput,
