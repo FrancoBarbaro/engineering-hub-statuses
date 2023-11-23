@@ -6,39 +6,39 @@ import {
   Flex,
   Input,
   Tooltip,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import type { FC } from "react";
 
 type EditableFieldProps = {
   initialValue: string;
   onChange: (newValue: string) => void;
+	fontSize?: string;
+  [chakraProp: string]: any;
 };
 
 export const EditableField: FC<EditableFieldProps> = ({
   initialValue,
   onChange,
+  fontSize,
+  ...chakraProps
 }) => {
   return (
     <Editable
       defaultValue={initialValue}
       isPreviewFocusable={true}
       selectAllOnFocus={false}
-      fontSize="sm"
-      pl={1}
       onSubmit={onChange}
+			fontSize={fontSize}
+      {...chakraProps}
     >
       <Flex>
-        <Tooltip label="Click to edit" shouldWrapChildren={true}>
-          <EditablePreview
-            px={1}
-            _hover={{ background: useColorModeValue("gray.100", "gray.700") }}
-          />
+        <Tooltip label="Click to edit" shouldWrapChildren={true} hasArrow>
+          <EditablePreview px={1} _hover={{ background: "gray.100" }} />
         </Tooltip>
         <Input
           pl={1}
           mr={1}
-          fontSize="sm"
+          fontSize={fontSize}
           height="fit-content"
           as={EditableInput}
         />

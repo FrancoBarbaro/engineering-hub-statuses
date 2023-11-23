@@ -85,7 +85,21 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
               {name}
             </Heading>
             {/* TODO: make bio editable if authed */}
-            <Text>{bio}</Text>
+            {/* <Text>{bio}</Text> */}
+            {authedAsThisProfessor ? (
+              <EditableField
+                pos="relative"
+                left={-1}
+                initialValue={bio}
+                onChange={(newBio: string) => {
+                  changeProfessorAttribute(hyphenatedName, "bio", newBio);
+                  info.bio = newBio;
+                  changeSwrData({ info });
+                }}
+              />
+            ) : (
+              <Text>{bio}</Text>
+            )}
           </Box>
           <Box>
             <Heading size="xs" textTransform="uppercase">
@@ -109,6 +123,8 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
 						benefit of a dropdown */}
               {authedAsThisProfessor ? (
                 <EditableField
+                  fontSize="sm"
+                  pl={1}
                   initialValue={status}
                   onChange={(newStatus: string) => {
                     // TODO: maybe i can pass in the hyphenatedName to the hook instead of the function
