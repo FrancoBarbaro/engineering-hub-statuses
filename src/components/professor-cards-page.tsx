@@ -9,6 +9,7 @@ type ProfessorCardsPageProps = {
 
 export const ProfessorCardsPage: FC<ProfessorCardsPageProps> = ({ data }) => (
   <Flex flexWrap="wrap" justifyContent="space-around">
+		{/* TODO: maybe sort by name */}
     {data.map((info) => (
       <ProfessorCard key={info.hyphenatedName} info={info} />
     ))}

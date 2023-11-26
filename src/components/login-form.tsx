@@ -60,7 +60,7 @@ export const LoginForm: FC<LoginFormProps> = ({
     toast.promise(authStatusPromise, {
       success: {
         title: "You're Authenticated!",
-        description: "You can now click on a field to edit it",
+        description: "You can now click on a field to change it",
         duration: 2000,
       },
       error: {

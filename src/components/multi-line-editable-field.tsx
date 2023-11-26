@@ -11,11 +11,13 @@ import TextareaAutosize from "react-textarea-autosize";
 type MultiLineEditableFieldProps = {
   initialValue: string;
   onSubmit: (newValue: string) => void;
+  [chakraProp: string]: any;
 };
 
 export const MultiLineEditableField: FC<MultiLineEditableFieldProps> = ({
   onSubmit,
   initialValue,
+  ...chakraProps
 }) => (
   <Editable
     defaultValue={initialValue}
@@ -23,9 +25,7 @@ export const MultiLineEditableField: FC<MultiLineEditableFieldProps> = ({
     selectAllOnFocus={false}
     submitOnBlur={false}
     onSubmit={onSubmit}
-    fontSize="sm"
-    pos="relative"
-    left={-1}
+    {...chakraProps}
   >
     <Tooltip label="Click to edit" shouldWrapChildren={true} hasArrow>
       <EditablePreview

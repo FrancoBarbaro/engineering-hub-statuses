@@ -22,7 +22,7 @@ export const LoginModal: FC<LoginModalProps> = ({
   onClose,
   pageEmail,
 }) => {
-  const initialFocusRef = useRef(null);
+  const initialFocusRef = useRef<HTMLInputElement>(null);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} initialFocusRef={initialFocusRef}>
