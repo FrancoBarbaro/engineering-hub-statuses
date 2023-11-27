@@ -35,13 +35,7 @@ export const EditableField: FC<EditableFieldProps> = ({
         <EditablePreview px={1} _hover={{ background: "gray.100" }} />
       </Tooltip>
       {/* TODO: prevent from changing to "", required prop doesn't do the trick */}
-      <EditableInput
-        pl={1}
-        mr={1}
-        fontSize={fontSize}
-        h="fit-content"
-        autoFocus
-      />
+      <EditableInput pl={1} mr={1} fontSize={fontSize} h="fit-content" />
       <EditableControls />
     </Flex>
   </Editable>

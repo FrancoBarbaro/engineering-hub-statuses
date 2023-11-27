@@ -100,6 +100,7 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
                 top={1}
                 initialValue={bio}
                 onSubmit={(newBio: string) => {
+                  if (newBio.trim() === "") return;
                   changeProfessorAttribute("bio", newBio);
                   info.bio = newBio;
                   changeSwrData({ info });
@@ -116,11 +117,7 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
             <ExternalLink text={officeLocation} href={officePicture} />
           </Box>
           <Box>
-            <Heading
-              size="xs"
-              textTransform="uppercase"
-              mb={2}
-            >
+            <Heading size="xs" textTransform="uppercase" mb={2}>
               Status
             </Heading>
             <Flex alignItems="center">
@@ -129,6 +126,8 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
                 <DropdownWithCustomInput
                   status={status}
                   changeState={(newStatus: string) => {
+                    // TODO: maybe use an AlertDialog to tell the user that they need to input something
+                    if (newStatus.trim() === "") return;
                     changeProfessorAttribute("status", newStatus);
                     info.status = newStatus;
                     changeSwrData({ info });
@@ -164,6 +163,7 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
                   pos="relative"
                   left={-1}
                   onSubmit={(newOfficeHours: string) => {
+                    if (newOfficeHours.trim() === "") return;
                     changeProfessorAttribute("officeHours", newOfficeHours);
                     info.officeHours = newOfficeHours;
                     changeSwrData({ info });
