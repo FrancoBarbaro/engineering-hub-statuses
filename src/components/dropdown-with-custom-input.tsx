@@ -32,7 +32,7 @@ export const DropdownWithCustomInput: FC<DropdownWithCustomInputProps> = ({
 
   return (
     <>
-      <Menu>
+      <Menu autoSelect={false}>
         <MenuButton
           as={Button}
           aria-label="Options"
