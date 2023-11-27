@@ -20,25 +20,29 @@ export const EditableField: FC<EditableFieldProps> = ({
   onSubmit,
   fontSize,
   ...chakraProps
-}) => {
-  return (
-    <Editable
-      defaultValue={initialValue}
-      isPreviewFocusable={true}
-      selectAllOnFocus={false}
-      submitOnBlur={false}
-      onSubmit={onSubmit}
-      fontSize={fontSize}
-      {...chakraProps}
-    >
-      <Flex>
-        <Tooltip label="Click to edit" shouldWrapChildren={true} hasArrow>
-          <EditablePreview px={1} _hover={{ background: "gray.100" }} />
-        </Tooltip>
-        {/* TODO: prevent from changing to "", required prop doesn't do the trick */}
-        <EditableInput pl={1} mr={1} fontSize={fontSize} h="fit-content" />
-        <EditableControls />
-      </Flex>
-    </Editable>
-  );
-};
+}) => (
+  <Editable
+    defaultValue={initialValue}
+    isPreviewFocusable={true}
+    selectAllOnFocus={false}
+    submitOnBlur={false}
+    onSubmit={onSubmit}
+    fontSize={fontSize}
+    {...chakraProps}
+  >
+    <Flex>
+      <Tooltip label="Click to edit" shouldWrapChildren={true} hasArrow>
+        <EditablePreview px={1} _hover={{ background: "gray.100" }} />
+      </Tooltip>
+      {/* TODO: prevent from changing to "", required prop doesn't do the trick */}
+      <EditableInput
+        pl={1}
+        mr={1}
+        fontSize={fontSize}
+        h="fit-content"
+        autoFocus
+      />
+      <EditableControls />
+    </Flex>
+  </Editable>
+);

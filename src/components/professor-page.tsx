@@ -1,5 +1,6 @@
 import { auth } from "@/clients/firebase/firebase-app";
 import type { ProfessorInfo } from "@/common/types";
+import { DropdownWithCustomInput } from "@/components/dropdown-with-custom-input";
 import { EditableField } from "@/components/editable-field";
 import { ExternalLink } from "@/components/external-link";
 import { LoginModal } from "@/components/login-modal";
@@ -88,12 +89,13 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
               w="100%"
               maxW="25em"
             />
-            <Heading size="md" mt={4}>
+            <Heading size="md" mt={4} mb={authedAsThisProfessor ? 0 : 1}>
               {name}
             </Heading>
             {authedAsThisProfessor ? (
               <EditableField
                 pos="relative"
+                placeholder="Bio"
                 left={-1}
                 top={1}
                 initialValue={bio}
@@ -108,7 +110,7 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
             )}
           </Box>
           <Box>
-            <Heading size="xs" textTransform="uppercase">
+            <Heading size="xs" textTransform="uppercase" mb={2}>
               Office Location
             </Heading>
             <ExternalLink text={officeLocation} href={officePicture} />
@@ -117,26 +119,16 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
             <Heading
               size="xs"
               textTransform="uppercase"
-              pb={authedAsThisProfessor ? 1 : 2}
+              mb={2}
             >
               Status
             </Heading>
-            <Flex>
-              <StatusIcon status={status} />
-              {/* TODO: convert to dropdown. IDEA: have a dropdown that a set of statuses that the professor
-						has used before (load them from the database) and a "Custom" option at the bottom. Selecting "Custom"
-						should trigger a state change that makes an EditableField appear, and whatever they type in it should
-						be set as their status AND added to the list of pre-existing statuses in the database, then we can
-						hide the EditableField again */}
-              {/* One potential drawback of the approach above: professors may set a custom status that they only intend
-						to use once, and ones who do this a lot would have very large dropdowns, which would remove some of the
-						benefit of a dropdown */}
+            <Flex alignItems="center">
+              {!authedAsThisProfessor && <StatusIcon status={status} />}
               {authedAsThisProfessor ? (
-                <EditableField
-                  fontSize="sm"
-                  pl={1}
-                  initialValue={status}
-                  onSubmit={(newStatus: string) => {
+                <DropdownWithCustomInput
+                  status={status}
+                  changeState={(newStatus: string) => {
                     changeProfessorAttribute("status", newStatus);
                     info.status = newStatus;
                     changeSwrData({ info });
@@ -150,7 +142,7 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
             </Flex>
           </Box>
           <Box>
-            <Heading size="xs" textTransform="uppercase">
+            <Heading size="xs" textTransform="uppercase" mb={2}>
               Email
             </Heading>
             <ExternalLink text={email} href={`mailto:${email}`} />
@@ -160,13 +152,17 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
               <Heading
                 size="xs"
                 textTransform="uppercase"
-                pb={authedAsThisProfessor ? 1 : 2}
+                mb={authedAsThisProfessor ? 1 : 2}
               >
                 Office Hours
               </Heading>
               {authedAsThisProfessor ? (
                 <MultiLineEditableField
                   initialValue={officeHours}
+                  placeholder="Office Hours"
+                  fontSize="sm"
+                  pos="relative"
+                  left={-1}
                   onSubmit={(newOfficeHours: string) => {
                     changeProfessorAttribute("officeHours", newOfficeHours);
                     info.officeHours = newOfficeHours;
@@ -174,7 +170,7 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
                   }}
                 />
               ) : (
-                <Text pt={2} fontSize="sm" whiteSpace="pre-wrap">
+                <Text fontSize="sm" whiteSpace="pre-wrap">
                   {officeHours}
                 </Text>
               )}

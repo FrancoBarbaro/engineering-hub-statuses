@@ -9,10 +9,13 @@ type EditableControlsProps = {
 export const EditableControls: FC<EditableControlsProps> = ({
   justifyContent,
 }) => {
-  const { isEditing, getSubmitButtonProps, getCancelButtonProps } =
-    useEditableControls();
+  const {
+    isEditing,
+    getSubmitButtonProps,
+    getCancelButtonProps,
+    getEditButtonProps,
+  } = useEditableControls();
 
-  // TODO: add edit button?
   return isEditing ? (
     <ButtonGroup
       size="xs"

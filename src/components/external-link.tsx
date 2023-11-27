@@ -8,7 +8,7 @@ type ExternalLinkProps = {
 };
 
 export const ExternalLink: FC<ExternalLinkProps> = ({ text, href }) => (
-  <LinkBox pt={2} role="group" w="fit-content">
+  <LinkBox role="group" w="fit-content">
     <LinkOverlay
       href={href}
       target="_blank"
