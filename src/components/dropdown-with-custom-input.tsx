@@ -2,6 +2,7 @@ import { EditableField } from "@/components/editable-field";
 import { StatusIcon } from "@/components/status-icon";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import {
+	Box,
   Button,
   HStack,
   Menu,
@@ -31,7 +32,7 @@ export const DropdownWithCustomInput: FC<DropdownWithCustomInputProps> = ({
   const [optionSelected, setOptionSelected] = useState(initialOptionSelected);
 
   return (
-    <>
+    <Box pos="relative" top={1}>
       <Menu autoSelect={false}>
         <MenuButton
           as={Button}
@@ -105,6 +106,6 @@ export const DropdownWithCustomInput: FC<DropdownWithCustomInputProps> = ({
           onSubmit={changeState}
         />
       )}
-    </>
+    </Box>
   );
 };
