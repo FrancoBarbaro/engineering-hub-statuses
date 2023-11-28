@@ -117,7 +117,11 @@ export const ProfessorPage: FC<ProfessorPageProps> = ({
             <ExternalLink text={officeLocation} href={officePicture} />
           </Box>
           <Box>
-            <Heading size="xs" textTransform="uppercase">
+            <Heading
+              size="xs"
+              textTransform="uppercase"
+              mb={authedAsThisProfessor ? 0 : 2}
+            >
               Status
             </Heading>
             <Flex alignItems="center">
