@@ -98,8 +98,8 @@ export const DropdownWithCustomInput: FC<DropdownWithCustomInputProps> = ({
       </Menu>
       {optionSelected === "Custom" && (
         <EditableField
-          startWithEditView={true}
-          initialValue=""
+          startWithEditView={initialOptionSelected === "Custom" ? false : true}
+          initialValue={initialOptionSelected === "Custom" ? status : ""}
           placeholder="Status"
           ml={2}
           onSubmit={changeState}
