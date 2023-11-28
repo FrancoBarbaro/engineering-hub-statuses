@@ -26,6 +26,7 @@ export type BasicInfoReturnType =
   | SuccessBasicInfoReturnType
   | FailedBasicInfoReturnType;
 
+// when we have all our data, make officeHours and callendly required types
 export type ProfessorInfo = {
   name: string;
   photo: string;

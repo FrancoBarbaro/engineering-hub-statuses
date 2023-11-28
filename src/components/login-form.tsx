@@ -78,6 +78,7 @@ export const LoginForm: FC<LoginFormProps> = ({
     setPassword("");
   };
 
+	// TODO: add password reset
   return (
     <form id="login-form" onSubmit={submitHandler}>
       <FormControl>
