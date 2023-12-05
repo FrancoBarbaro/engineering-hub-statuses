@@ -8,11 +8,14 @@ const ProfName = () => {
   const router = useRouter();
   const { profName } = router.query;
   const { data, changeSwrData } = useFetchProfessorInfo(profName);
+  const pageTitle = `${
+    data ? data.name : "Loading"
+  } | Engineering Hub Statuses`;
 
   return (
     <>
       <Head>
-        <title>{data ? data.name : "Loading"} | Engineering Hub Statuses</title>
+        <title>{pageTitle}</title>
         <meta name="description" content="professor page" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
